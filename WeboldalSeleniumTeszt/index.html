@@ -1,0 +1,337 @@
+﻿<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KönyvOázis – Digitális Könyvtár és Áruház</title>
+    <style>
+        /* Modern, letisztult alapok */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f4f7f6;
+            color: #333;
+            scroll-behavior: smooth;
+        }
+
+        /* Navigációs sáv */
+        header {
+            background-color: #ffffff;
+            padding: 20px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+
+            .logo span {
+                color: #e74c3c;
+            }
+
+        nav a {
+            text-decoration: none;
+            color: #555;
+            margin-left: 20px;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+
+            nav a:hover, nav a.active {
+                color: #e74c3c;
+            }
+
+        /* Hero kiemelt szekció */
+        .hero {
+            background: linear-gradient(135deg, #2c3e50, #3498db);
+            color: white;
+            padding: 100px 50px;
+            text-align: center;
+        }
+
+            .hero h1 {
+                font-size: 48px;
+                margin-bottom: 20px;
+            }
+
+            .hero p {
+                font-size: 20px;
+                margin-bottom: 30px;
+                opacity: 0.9;
+            }
+
+        .hero-btn {
+            display: inline-block;
+            background-color: #e74c3c;
+            color: white;
+            padding: 12px 30px;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+
+            .hero-btn:hover {
+                background-color: #c0392b;
+            }
+
+        /* Könyv Galéria / Kínálat */
+        .main-content {
+            padding: 60px 50px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 32px;
+            margin-bottom: 40px;
+            color: #2c3e50;
+            position: relative;
+        }
+
+            .section-title::after {
+                content: '';
+                display: block;
+                width: 60px;
+                height: 3px;
+                background-color: #e74c3c;
+                margin: 10px auto 0 auto;
+            }
+
+        .book-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        .book-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: transform 0.3s;
+            text-align: center;
+            padding: 20px;
+        }
+
+            .book-card:hover {
+                transform: translateY(-5px);
+            }
+
+        .book-cover {
+            width: 120px;
+            height: 180px;
+            background-color: #bdc3c7;
+            margin: 0 auto 15px auto;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #7f8c8d;
+            font-weight: bold;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .book-title {
+            font-size: 18px;
+            margin-bottom: 10px;
+            color: #2c3e50;
+        }
+
+        .book-author {
+            color: #7f8c8d;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        .book-price {
+            color: #27ae60;
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        /* Bejelentkező Szekció */
+        .login-section {
+            background-color: #eaedd0;
+            background: linear-gradient(45deg, #f1c40f, #e67e22);
+            padding: 80px 50px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .login-container {
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+            .login-container h2 {
+                margin-bottom: 25px;
+                color: #2c3e50;
+            }
+
+        .input-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+            .input-group label {
+                display: block;
+                margin-bottom: 6px;
+                color: #666;
+                font-weight: 600;
+            }
+
+            .input-group input {
+                width: 100%;
+                padding: 12px;
+                border: 2px solid #ddd;
+                border-radius: 6px;
+                transition: border-color 0.3s;
+            }
+
+                .input-group input:focus {
+                    border-color: #e67e22;
+                    outline: none;
+                }
+
+        #login-btn {
+            width: 100%;
+            padding: 12px;
+            background-color: #e67e22;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+            #login-btn:hover {
+                background-color: #d35400;
+            }
+
+        #error-msg {
+            color: #721c24;
+            background-color: #f8d7da;
+            border: 1px solid #f5c6cb;
+            padding: 12px;
+            margin-bottom: 20px;
+            border-radius: 6px;
+            display: none;
+            font-size: 14px;
+        }
+
+        footer {
+            background-color: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">Könyv<span>Oázis</span></div>
+        <nav>
+            <a href="#" class="active">Kezdőlap</a>
+            <a href="#kinalat">Könyveink</a>
+            <a href="#fiok">Fiókom</a>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <h1>Találd meg a következő kalandodat!</h1>
+        <p>Több ezer könyv, online kölcsönzés és villámgyors házhozszállítás egy helyen.</p>
+        <a href="#kinalat" class="hero-btn">Böngészés a könyvek között</a>
+    </section>
+
+    <main class="main-content" id="kinalat">
+        <h2 class="section-title">Kiemelt Ajánlataink</h2>
+
+        <div class="book-grid">
+            <div class="book-card">
+                <div class="book-cover">Egri Csillagok</div>
+                <h3 class="book-title">Egri Csillagok</h3>
+                <p class="book-author">Gárdonyi Géza</p>
+                <p class="book-price">3 490 Ft</p>
+            </div>
+            <div class="book-card">
+                <div class="book-cover">A Pál utcaiak</div>
+                <h3 class="book-title">A Pál utcai fiúk</h3>
+                <p class="book-author">Molnár Ferenc</p>
+                <p class="book-price">2 990 Ft</p>
+            </div>
+            <div class="book-card">
+                <div class="book-cover">1984</div>
+                <h3 class="book-title">1984</h3>
+                <p class="book-author">George Orwell</p>
+                <p class="book-price">3 990 Ft</p>
+            </div>
+        </div>
+    </main>
+
+    <section class="login-section" id="fiok">
+        <div class="login-container">
+            <h2 id="page-title">Tagi Bejelentkezés</h2>
+
+            <div id="error-msg">Hibás tagi azonosító vagy jelszó!</div>
+
+            <div class="input-group">
+                <label for="user">Felhasználónév</label>
+                <input type="text" id="user" placeholder="Felhasználónév...">
+            </div>
+
+            <div class="input-group">
+                <label for="pass">Jelszó</label>
+                <input type="password" id="pass" placeholder="••••••••">
+            </div>
+
+            <button id="login-btn" onclick="validateLogin()">Bejelentkezés</button>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 KönyvOázis Kft. Minden jog fenntartva.</p>
+    </footer>
+
+    <script>
+        function validateLogin() {
+            var u = document.getElementById('user').value;
+            var p = document.getElementById('pass').value;
+            var error = document.getElementById('error-msg');
+            var title = document.getElementById('page-title');
+
+            if (u === "admin" && p === "titok") {
+                error.style.display = "none";
+                title.innerText = "Sikeresen bent vagy!";
+                title.style.color = "#27ae60";
+            } else {
+                error.style.display = "block";
+            }
+        }
+    </script>
+</body>
+</html>
