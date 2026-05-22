@@ -21,7 +21,7 @@ public class Tests
     [Test]
     public void Teljes_KonyvtarOldal_UI_UX_Teszt()
     {
-        // 1. Az index.html betöltése (Figyelj, hogy a saját, javított, sima perjeles elérési utad legyen itt!)
+        // 1. Az index.html betöltése 
         _driver.Navigate().GoToUrl("file:///C:/Users/fabia/source/repos/Gyakorlatok4/WeboldalSeleniumTeszt/index.html");
 
         // 2. UI/UX teszt: Fejléc és Logó ellenőrzése
@@ -60,7 +60,7 @@ public class Tests
         var title = _driver.FindElement(By.Id("page-title"));
         Assert.That(title.Text, Is.EqualTo("Sikeresen bent vagy!"));
 
-        // 4 másodperc élvezet, hogy lásd a komplett oldalt működni!
+        // 4 másodperc élvezet
         Thread.Sleep(4000);
     }
 
